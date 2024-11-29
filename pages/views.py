@@ -8,3 +8,5 @@ class HomePageView(TemplateView):
 class AboutPageView(TemplateView):
     template_name = "pages/about.html"
     
+class AccountLogoutView(TemplateView):
+    template_name = "pages/logout.html"

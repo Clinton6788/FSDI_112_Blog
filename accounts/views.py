@@ -1,14 +1,9 @@
-from django.views.generic import TemplateView
-from django.contrib.auth import logout
-from django.shortcuts import redirect
+from django.views.generic import CreateView
+from django.contrib.auth.forms import UserCreationForm
+from django.urls import reverse_lazy
 
-# Create your views here.
-class LogoutConfirmView(TemplateView):
-    template_name = "registration/logout_confirm.html"
 
-    def get(self, request):
-        return self.render_to_response(self.get_context_data())
-
-    def post(self, request):
-        logout(request)
-        return redirect('home')
+class SignUpView(CreateView):
+    template_name = "registration/signup.html"
+    form_class = UserCreationForm
+    success_url = reverse_lazy("login")

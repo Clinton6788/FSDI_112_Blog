@@ -28,15 +28,22 @@ class PostCreateView(LoginRequiredMixin, CreateView):
             ]
     # success_url = reverse("list")
 
-class PostUpdateView(LoginRequiredMixin, UpdateView):
+class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     template_name = "posts/edit.html"
     model = Post
     fields = ["title", "subtitle", "body",
             "status"
             ]
 
+    def test_func(self):
+        post = self.get_object()
+        return post.author == self.request.user
 
-class PostDeleteView(LoginRequiredMixin, DeleteView):
+class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     template_name = "posts/delete.html"
     model = Post
     success_url = reverse_lazy("list")
+
+    def test_func(self):
+        post = self.get_object()
+        return post.author == self.request.user

@@ -20,9 +20,20 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'list' %}">Posts</a>
                     </li>
+                    {% if user.is_authenticated %}
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'new' %}">New Post</a>
                     </li>
+                    {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'login' %}">New Post</a>
+                    </li>
+                    {% endif %}
+                    {% if user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'archived' %}">Archived</a>
+                    </li>
+                    {% endif %}
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'about' %}">About</a>
                     </li>
@@ -41,6 +52,15 @@
                             <li><a class="dropdown-item" href="{% url 'password_change' %}">Change Password</a></li>
                         </ul>
                     </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">My Posts</a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <li><a class="dropdown-item" href="{% url 'user_post' %}">All</a></li>
+                            <li><a class="dropdown-item" href="{% url 'published' %}">Published</a></li>
+                            <li><a class="dropdown-item" href="{% url 'draft' %}">Drafts</a></li>
+                            <li><a class="dropdown-item" href="{% url 'user_archived' %}">Archived</a></li>
+                        </ul>
+                    </li>
                     {% else %}
                     <li>
                         <a class="nav-link" href="{% url 'login' %}">Log In</a>
@@ -50,7 +70,8 @@
                 </ul>
             </div>
         </div>
-    </nav>    <div class="container">
+    </nav>    
+    <div class="container">
         {% block content %}{% endblock content %}
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" 

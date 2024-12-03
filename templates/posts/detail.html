@@ -6,7 +6,7 @@
 {% block content %}
 <h1>{{ post.title}}</h1>
 <h3>{{ post.subtitle }}</h3>
-<small>Created on: {{ post.created_on }}</small>
+<small>Created on: {{ post.created_on }} || Created by: {{ post.author }}</small>
 <p>{{ post.body }}</p>
 
 {% if user.is_authenticated %}
